@@ -1,0 +1,30 @@
+/* Kleuren afgeleid van de publiek gebruikte HVHL-huisstijl, september 2026. */
+:root{
+  --accent:#337b40;
+  --muted:#46514a;
+  --line:#c5d4d9;
+  --paper:#fff;
+  --pale:rgba(145,216,0,.2);
+  --lime:#91d800;
+  --lime-soft:#d7f1a3;
+  --cream:#fcf8f1;
+  --orange:#ff7300;
+  --focus:#8e4306;
+  --orange-soft:#fdddc1;
+  --ink:#1d1d1b;
+}
+body{color:var(--ink);background:var(--cream)}
+.testbar{background:#000;color:#fff;border-bottom:4px solid var(--lime)}
+.brand{color:var(--ink)}.brand span{color:var(--lime)}.brand small{color:#46514a}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+button.primary:hover:not(:disabled){background:#245d30}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline-color:var(--focus)}
+.hero,.stat{background:var(--pale)}
+.badge,.lesson-card .status.done,.summary-bar span{background:var(--lime-soft);color:var(--ink)}
+.lesson-card .status.busy,.warning{background:var(--orange-soft);color:#6f3506}
+.progress span,.mini-progress span{background:var(--accent)}
+.option:has(input:checked){background:var(--pale);border-color:var(--accent)}
+.feedback{background:var(--pale);border-color:var(--accent)}
+.feedback.wrong{background:var(--orange-soft);border-color:var(--orange)}
+.kicker{color:#506d16}
+th{background:var(--pale)}
