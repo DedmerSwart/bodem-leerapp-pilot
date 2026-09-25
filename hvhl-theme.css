@@ -22,7 +22,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 .hero,.stat{background:var(--pale)}
 .badge,.lesson-card .status.done,.summary-bar span{background:var(--lime-soft);color:var(--ink)}
 .lesson-card .status.busy,.warning{background:var(--orange-soft);color:#6f3506}
-.progress span,.mini-progress span{background:var(--accent)}
+.progress span{background:var(--accent)}
 .option:has(input:checked){background:var(--pale);border-color:var(--accent)}
 .feedback{background:var(--pale);border-color:var(--accent)}
 .feedback.wrong{background:var(--orange-soft);border-color:var(--orange)}

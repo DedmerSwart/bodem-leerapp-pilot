@@ -72,7 +72,7 @@
       return `<section class="block"><div class="block-head"><div><p class="kicker">${block}</p><h2>${block === 'LDV111' ? 'Bodem en landschap' : block === 'LDV112' ? 'Bodemprocessen en klimaat' : 'Bodem, bemesting, leven en water'}</h2></div><p class="muted">${blockDone} van ${lessons.length} doorlopen</p></div><div class="lesson-grid">${lessons.map(lesson => {
         const progress = overview.lessons.find(item => item.id === lesson.id);
         const answeredCount = progress?.answered || 0;
-        return `<button class="lesson-card" data-action="open-lesson" data-id="${lesson.id}"><span class="lesson-top"><span class="kicker">${lesson.id} · circa ${lesson.minutes} min.</span><span class="status ${statusClass(progress.status)}">${esc(progress.status)}</span></span><strong>${esc(lesson.title)}</strong><small>${answeredCount} van 6 vragen · ${progress.score === null ? 'nog geen eerste score' : progress.score + ' punt' + (progress.score === 1 ? '' : 'en')}</small><span class="mini-progress"><span style="width:${answeredCount / 6 * 100}%"></span></span></button>`;
+        return `<button class="lesson-card" data-action="open-lesson" data-id="${lesson.id}"><span class="lesson-top"><span class="kicker">${lesson.id} · circa ${lesson.minutes} min.</span><span class="status ${statusClass(progress.status)}">${esc(progress.status)}</span></span><strong>${esc(lesson.title)}</strong><small>${answeredCount} van 6 vragen · ${progress.score === null ? 'nog geen eerste score' : progress.score + ' punt' + (progress.score === 1 ? '' : 'en')}</small></button>`;
       }).join('')}</div></section>`;
     }).join('');
     if (focus) { main.focus(); main.scrollIntoView({block:'start'}); }
