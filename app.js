@@ -10,6 +10,10 @@
   const count = answers => answers.filter(value => value !== null).length;
   const statusClass = status => status === 'Doorlopen' ? 'done' : status === 'Bezig' ? 'busy' : '';
   const button = (action, label, primary=false, extra='') => `<button type="button" data-action="${action}" ${primary?'class="primary"':''} ${extra}>${label}</button>`;
+  const questionTable = table => {
+    if (!table || !Array.isArray(table.headers) || !Array.isArray(table.rows)) return '';
+    return `<div class="question-table" role="region" aria-label="${esc(table.caption)}" tabindex="0"><table><caption>${esc(table.caption)}</caption><thead><tr>${table.headers.map(header => `<th scope="col">${esc(header)}</th>`).join('')}</tr></thead><tbody>${table.rows.map(row => `<tr>${row.map((cell,index) => index === 0 ? `<th scope="row">${esc(cell)}</th>` : `<td>${esc(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  };
   function message(text='') { notice.textContent = text; notice.hidden = !text; }
   function lock(on) { busy = on; main.setAttribute('aria-busy', String(on)); document.querySelectorAll('button,input').forEach(element => { if (on) { element.dataset.wasDisabled = String(element.disabled); element.disabled = true; } else if (element.dataset.wasDisabled !== undefined) { element.disabled = element.dataset.wasDisabled === 'true'; delete element.dataset.wasDisabled; } }); }
   function forget() { token = ''; overview = null; detail = null; currentId = ''; try { sessionStorage.removeItem(sessionKey); } catch {} }
@@ -93,7 +97,7 @@
       if (state.read) html += `<div class="actions">${button('back-quiz', count(state.round) === 6 ? 'Bekijk resultaat' : 'Terug naar de vragen')}</div>`;
     } else if (state.view === 'quiz') {
       const question = lesson.questions[state.question], answer = state.round[state.question], feedback = detail.feedback[state.question];
-      html += `<p class="kicker">Vraag ${state.question+1} van 6</p><form id="answer-form"><fieldset ${answer!==null?'disabled':''}><legend>${esc(question.q)}</legend><div class="options">${question.options.map((option,index) => `<label class="option ${answer!==null?'locked':''}"><input type="radio" name="answer" value="${index}" ${answer===index?'checked':''} required><span class="letter">${'ABC'[index]}.</span><span>${esc(option)}</span></label>`).join('')}</div></fieldset>${answer===null?'<div class="actions"><button class="primary" type="submit" disabled>Bevestig antwoord</button></div>':''}</form>`;
+      html += `<p class="kicker">Vraag ${state.question+1} van 6</p><form id="answer-form"><fieldset ${answer!==null?'disabled':''}><legend>${esc(question.q)}</legend>${questionTable(question.table)}<div class="options">${question.options.map((option,index) => `<label class="option ${answer!==null?'locked':''}"><input type="radio" name="answer" value="${index}" ${answer===index?'checked':''} required><span class="letter">${'ABC'[index]}.</span><span>${esc(option)}</span></label>`).join('')}</div></fieldset>${answer===null?'<div class="actions"><button class="primary" type="submit" disabled>Bevestig antwoord</button></div>':''}</form>`;
       if (answer !== null && feedback) html += `<div class="feedback ${answer===feedback.correct?'':'wrong'}" role="status"><h3>${answer===feedback.correct?'Goed beantwoord.':'Nog niet goed.'} Het juiste antwoord is ${'ABC'[feedback.correct]}.</h3><p>${esc(feedback.explanation)}</p></div><div class="actions">${button('next',state.question===5?'Bekijk resultaat':'Volgende vraag',true,`data-question="${state.question}" data-round="${state.roundId}"`)}</div>`;
       html += `<div class="actions">${button('theory','Theorie teruglezen')}</div>`;
     } else {
